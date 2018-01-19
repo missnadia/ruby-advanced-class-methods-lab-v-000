@@ -40,20 +40,26 @@ class Song
     self.all.sort_by{|song| song.name}
   end
 
-  def self.new_from_filename(name)
-    artist_song = name.collect do |titles|
-      data = titles.split(" - ")
-      artist = data[0]
-      title = data[2]
-      song = self.new
-      song.artist = artist
-      song.title = title
-      song
-    end
-    artist_song
+  def self.new_from_filename(filename)
+    artist_song = filename.split(" - ")
+    artist = artist_song[0]
+    title = artist_song[1].gsub(".mp3", "")
+    
+    song = self.new
+    song.artist = artist
+    song.title = title
+    song
   end
+  
+  def self.create_from_filename(filename)
+    artist_song = filename.split(" - ")
+    artist = artist_song[0]
+    title = artist_song[1].gsub(".mp3", "")
 
-  def self.create_from_filename(name)
+    song = self.new
+    song.artist = artist
+    song.title = title
+    song
   end
 
   def self.destroy_all
